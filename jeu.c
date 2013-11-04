@@ -50,7 +50,7 @@ void initTaquin(Jeu jeu, Jeu ref, int *H, int *L, char *nf) {
 		for (j = 0; j < l; j=j+1)
 		{
 			fscanf(f,"%d", &c);
-			jeu[i][j] = (unsigned char)c;
+			jeu[i][j] = c;
 		}
 	}
 
