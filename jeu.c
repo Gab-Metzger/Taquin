@@ -33,7 +33,8 @@ void afficheJeu(Jeu jeu, int h, int l) {
 
 void initTaquin(Jeu jeu, Jeu ref, int *H, int *L, char *nf) {
 	FILE *f = NULL;
-	int i,j,h,l,c;
+	int i,j,h,l;
+	char c[3];
 
 	f = fopen(nf,"r");
 
@@ -49,8 +50,8 @@ void initTaquin(Jeu jeu, Jeu ref, int *H, int *L, char *nf) {
 	{
 		for (j = 0; j < l; j=j+1)
 		{
-			fscanf(f,"%d", &c);
-			jeu[i][j] = c;
+			fscanf(f,"%s", c);
+			jeu[i][j] = c[0];
 		}
 	}
 
@@ -59,8 +60,8 @@ void initTaquin(Jeu jeu, Jeu ref, int *H, int *L, char *nf) {
 	{
 		for (j = 0; j < l; j=j+1)
 		{
-			fscanf(f,"%d", &c);
-			ref[i][j] = c;
+			fscanf(f,"%s", c);
+			ref[i][j] = c[0];
 		}
 	}
 
