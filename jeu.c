@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <math.h>
 
 #define MAXSIZE 4
 
@@ -96,7 +97,7 @@ Coordonnees rechercherValJeu(Jeu jeu, int h, int l, char val) {
 
 }
 
-Coordonnees rechercherValJeuRef(Jeu ref, char val) {
+Coordonnees rechercherValJeuRef(char val) {
 	static char posRef[] = {0,0,0,1,0,2,1,0,1,1,1,2,2,0,2,1,2,2};
 	Coordonnees res;
 
@@ -106,15 +107,26 @@ Coordonnees rechercherValJeuRef(Jeu ref, char val) {
 	return res;
 }
 
+int distance(Jeu jeu, int h, int l, char c) {
+	Coordonnees CJeu;
+	Coordonnees CJeuRef;
+	int res;
+
+	CJeu = rechercherValJeu(jeu,h,l,c);
+	CJeuRef = rechercherValJeuRef(c);
+
+	res = abs(CJeu.x-CJeuRef.x) + abs(CJeu.y-CJeuRef.y);
+
+	return res;
+}
+
 int main(int argc, char const *argv[])
 {
 	int h = 3, l = 3;
-	Coordonnees pos;
 	Jeu jeuRef,jeu;
 	initTaquin(jeu,jeuRef,&h,&l,"jeu.init");
 	afficheJeu(jeu,h,l);
-	pos = rechercherValJeuRef(jeuRef,'B');
-	printf("x : %d - y : %d \n", pos.x, pos.y);
+	printf("Distance de A : %d\n", distance(jeu,h,l,'A'));
 	return 0;
 }
 

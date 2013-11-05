@@ -14,6 +14,8 @@ Fonctions de base
 
 - rechercherValJeu(char, jeu) => (x,y)
 
+- rechercherValJeuRef(char) => (x,y)
+
 - existenceJeu(jeu, arbre) => booleen
 
 - stockageJeu(jeu, arbre) => arbre
@@ -21,6 +23,12 @@ Fonctions de base
 - choisirJeu(arbre) => jeu
 
 
+Utilisation
+===========
 
-PL copie pas !!
-===============
+- On code les mouvements grâce à des entiers : 
+	- 0 : haut
+	- 1 : bas
+	- 2 : gauche
+	- 3 : droite 
+
