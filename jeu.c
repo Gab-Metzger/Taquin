@@ -120,6 +120,38 @@ int distance(Jeu jeu, int h, int l, char c) {
 	return res;
 }
 
+void actionJeu(Jeu jeu, int h, int l, char c, int mvt) {
+	Coordonnees pos;
+	pos = rechercherValJeu(jeu,h,l,c);
+	char tmp
+
+	switch (mvt) {
+		case 0 : 
+		tmp = jeu[pos.x][pos.y];
+		jeu[pos.x][pos.y] = jeu[pos.x-1][pos.y];
+		jeu[pos.x-1][pos.y] = tmp;
+		break;
+
+		case 1 :
+		tmp = jeu[pos.x][pos.y];
+		jeu[pos.x][pos.y] = jeu[pos.x+1][pos.y];
+		jeu[pos.x+1][pos.y] = tmp;
+		break;
+
+		case 2 :
+		tmp = jeu[pos.x][pos.y];
+		jeu[pos.x][pos.y] = jeu[pos.x][pos.y-1];
+		jeu[pos.x][pos.y-1] = tmp;
+		break;
+
+		case 3 :
+		tmp = jeu[pos.x][pos.y];
+		jeu[pos.x][pos.y] = jeu[pos.x][pos.y+1];
+		jeu[pos.x][pos.y+1] = tmp;
+		break;		
+	}
+}
+
 int main(int argc, char const *argv[])
 {
 	int h = 3, l = 3;
