@@ -15,6 +15,11 @@ typedef struct t_arbre
   struct t_arbre *fils[4];
 } Noeud, *Arbre;
 
+typedef struct coord {
+	int x;
+	int y;
+} Coordonnees;
+
 // Fonction d'affichage d'un jeu du Taquin.
 // Le 0 correspond à la case vide.
 
@@ -71,12 +76,45 @@ void initTaquin(Jeu jeu, Jeu ref, int *H, int *L, char *nf) {
 	
 }
 
+Coordonnees rechercherValJeu(Jeu jeu, int h, int l, char val) {
+	int i,j;
+	Coordonnees res;
+
+	for (i = 0; i < h; i=i+1)
+	{
+		for (j = 0; j < l; j=j+1)
+		{
+			if (jeu[i][j] == val)
+			{
+				res.x = i;
+				res.y = j;
+			}
+		}
+	}
+
+	return res;
+
+}
+
+Coordonnees rechercherValJeuRef(Jeu ref, char val) {
+	static char posRef[] = {0,0,0,1,0,2,1,0,1,1,1,2,2,0,2,1,2,2};
+	Coordonnees res;
+
+	res.x = posRef[2*(val-'A')];
+	res.y = posRef[2*(val-'A')+1];
+
+	return res;
+}
+
 int main(int argc, char const *argv[])
 {
 	int h = 3, l = 3;
+	Coordonnees pos;
 	Jeu jeuRef,jeu;
 	initTaquin(jeu,jeuRef,&h,&l,"jeu.init");
 	afficheJeu(jeu,h,l);
+	pos = rechercherValJeuRef(jeuRef,'B');
+	printf("x : %d - y : %d \n", pos.x, pos.y);
 	return 0;
 }
 
