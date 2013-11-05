@@ -39,7 +39,7 @@ void initTaquin(Jeu jeu, Jeu ref, int *H, int *L, char *nf) {
 
 	if (f == NULL)
 	{
-		fprintf(stderr, "Erreur ouverture fichier : %s en lecture\n", nf);
+		fprintf(stderr, "Erreur ouverture fichier : %s\n", nf);
 	}
 
 	fscanf(f,"%d %d",&h,&l);
@@ -60,7 +60,7 @@ void initTaquin(Jeu jeu, Jeu ref, int *H, int *L, char *nf) {
 		for (j = 0; j < l; j=j+1)
 		{
 			fscanf(f,"%d", &c);
-			ref[i][j] = (unsigned char)c;
+			ref[i][j] = c;
 		}
 	}
 
