@@ -19,3 +19,8 @@ Fonctions de base
 - stockageJeu(jeu, arbre) => arbre
 
 - choisirJeu(arbre) => jeu
+
+
+
+PL copie pas !!
+===============
