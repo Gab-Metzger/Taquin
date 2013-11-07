@@ -6,6 +6,7 @@
 #define MAXSIZE 4
 #define TROU 0
 
+// Définition des structures
 typedef unsigned char Jeu[MAXSIZE][MAXSIZE];
 
 typedef struct t_arbre
@@ -16,6 +17,16 @@ typedef struct t_arbre
   int marque;
   struct t_arbre *fils[4];
 } Noeud, *Arbre;
+
+// Prototype des fonctions
+void afficheJeu(Jeu jeu, int h, int l);
+void initTaquin(Jeu jeu, Jeu ref, int *H, int *L, char *nf);
+void inverserValeur(unsigned char *a, unsigned char *b);
+void rechercherValJeu(unsigned char val, Jeu ref, int h, int l, int *x, int *y);
+int distance(Jeu jeu, Jeu ref, int h, int l);
+void actionJeu(Arbre a, Noeud *noeud, Jeu jeu, Jeu ref, int h, int l);
+Arbre ajoutFilsArbre(Arbre a, Jeu jeu, Jeu ref, int numeroCaseFils, int h, int l);
+int estDansArbre(Arbre a, Jeu jeu, int h, int l);
 
 
 // Fonction d'affichage d'un jeu du Taquin.
@@ -75,8 +86,7 @@ void initTaquin(Jeu jeu, Jeu ref, int *H, int *L, char *nf) {
 }
 
 // On inverse le contenu de deux variables en utilisant une variable temporaire. (Passage par adresse)
-void inverserValeur(unsigned char *a, unsigned char *b)
-{
+void inverserValeur(unsigned char *a, unsigned char *b) {
 	unsigned char tmp;
 	
 	tmp = *a;
@@ -125,9 +135,11 @@ int distance(Jeu jeu, Jeu ref, int h, int l) {
 }
 
 // Change la place du trou en fonction du mouvement possible.
-void actionJeu(Arbre a, Noeud noeud, Jeu jeu, Jeu ref, int h, int l) {
+void actionJeu(Arbre a, Noeud *noeud, Jeu jeu, Jeu ref, int h, int l) {
 	int x,y;
 	Noeud *n;
+
+	n = (Noeud*)malloc(sizeof(Noeud));
 
 	// On commence par detecter la position du trou (x et y).
 	rechercherValJeu(TROU,jeu,h,l,&x,&y);
@@ -243,9 +255,11 @@ int estDansArbre(Arbre a, Jeu jeu, int h, int l) {
 }
 
 // Recherche de la meilleur config, càd la somme des distances la plus courte en parcourant tout l'arbre.
+/*
 Noeud *rechercheMeilleurConfig(Arbre a) {
 	
 }
+*/
 
 int main(int argc, char const *argv[])
 {
@@ -253,7 +267,6 @@ int main(int argc, char const *argv[])
 	Jeu jeuRef,jeu;
 	initTaquin(jeu,jeuRef,&h,&l,"jeu.init");
 	afficheJeu(jeu,h,l);
-	printf("Distance de A : %d\n", distance(jeu,h,l,'A'));
 	return 0;
 }
 
