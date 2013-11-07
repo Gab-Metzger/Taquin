@@ -74,6 +74,16 @@ void initTaquin(Jeu jeu, Jeu ref, int *H, int *L, char *nf) {
 	
 }
 
+// On inverse le contenu de deux variables en utilisant une variable temporaire. (Passage par adresse)
+void inverserValeur(unsigned char *a, unsigned char *b)
+{
+	unsigned char tmp;
+	
+	tmp = *a;
+	*a = *b;
+	*b = tmp;
+}
+
 // Recherche les coordonnées de la lettre val dans le jeu de référance.
 void rechercherValJeu(unsigned char val, Jeu ref, int h, int l, int *x, int *y) {
 	int i,j;
@@ -114,36 +124,46 @@ int distance(Jeu jeu, Jeu ref, int h, int l) {
 	return sommeDistance;
 }
 
-// Déplace la case en fonction du mouvement possible
-void actionJeu(Jeu jeu, int h, int l, char c, int mvt) {
+// Change la place du trou en fonction du mouvement possible.
+void actionJeu(Arbre a, Noeud noeud, Jeu jeu, Jeu ref, int h, int l) {
 	int x,y;
-	rechercherValJeu(c,jeu,h,l,&x,&y);
-	char tmp
+	Noeud *n;
 
-	switch (mvt) {
-		case 0 : 
-		tmp = jeu[x][y];
-		jeu[x][y] = jeu[x-1][y];
-		jeu[x-1][y] = tmp;
-		break;
+	// On commence par detecter la position du trou (x et y).
+	rechercherValJeu(TROU,jeu,h,l,&x,&y);
 
-		case 1 :
-		tmp = jeu[x][y];
-		jeu[x][y] = jeu[x+1][y];
-		jeu[x+1][y] = tmp;
-		break;
-
-		case 2 :
-		tmp = jeu[x][y];
-		jeu[x][y] = jeu[x][y-1];
-		jeu[x][y-1] = tmp;
-		break;
-
-		case 3 :
-		tmp = jeu[x][y];
-		jeu[x][y] = jeu[x][y+1];
-		jeu[x][y+1] = tmp;
-		break;		
+	// En fonction des coordonnées du trou on effectue les mouvements possibles.
+	if (x > 0) {
+		// On échange le trou avec le caractère du dessus.
+		inverserValeur(&jeu[x][y], &jeu[x-1][y]);
+		if (!estDansArbre(a,jeu,h,l)) {
+			n = ajoutFilsArbre(noeud,jeu,ref,0,h,l);
+		}
+		inverserValeur(&jeu[x][y], &jeu[x-1][y]);
+	}
+	if (x < h-1) {
+		// On échange le trou avec le caractère du dessous.
+		inverserValeur(&jeu[x][y], &jeu[x+1][y]);
+		if (!estDansArbre(a,jeu,h,l)) {
+			n = ajoutFilsArbre(noeud,jeu,ref,1,h,l);
+		}
+		inverserValeur(&jeu[x][y], &jeu[x+1][y]);		
+	}
+	if (y > 0) {
+		// On échange le trou avec le caractère de gauche.
+		inverserValeur(&jeu[x][y], &jeu[x][y-1]);
+		if (!estDansArbre(a,jeu,h,l)) {
+			n = ajoutFilsArbre(noeud,jeu,ref,2,h,l);
+		}
+		inverserValeur(&jeu[x][y], &jeu[x][y-1]);		
+	}
+	if (y < l-1) {
+		// On échange le trou avec le caractère de droite.
+		inverserValeur(&jeu[x][y], &jeu[x][y+1]);
+		if (!estDansArbre(a,jeu,h,l)) {
+			n = ajoutFilsArbre(noeud,jeu,ref,3,h,l);
+		}
+		inverserValeur(&jeu[x][y], &jeu[x][y+1]);		
 	}
 }
 
@@ -220,6 +240,11 @@ int estDansArbre(Arbre a, Jeu jeu, int h, int l) {
 		}
 	}
 	return res;
+}
+
+// Recherche de la meilleur config, càd la somme des distances la plus courte en parcourant tout l'arbre.
+Noeud *rechercheMeilleurConfig(Arbre a) {
+	
 }
 
 int main(int argc, char const *argv[])
