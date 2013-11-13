@@ -3,11 +3,12 @@
 #include <string.h>
 #include <math.h>
 
-#define MAXSIZE 4
+#define TAILLEMAX 4
+#define MAXINT TAILLEMAX*TAILLEMAX*TAILLEMAX*TAILLEMAX
 #define TROU 0
 
 // Définition des structures
-typedef unsigned char Jeu[MAXSIZE][MAXSIZE];
+typedef unsigned char Jeu[TAILLEMAX][TAILLEMAX];
 
 typedef struct t_arbre
 {
@@ -255,11 +256,81 @@ int estDansArbre(Arbre a, Jeu jeu, int h, int l) {
 }
 
 // Recherche de la meilleur config, càd la somme des distances la plus courte en parcourant tout l'arbre.
-/*
 Noeud *rechercheMeilleurConfig(Arbre a) {
+	int i, aDesFils=0, distanceMinimum=MAXINT;
+	Noeud *n[4], *res=NULL;
 	
+	for(i = 0; i < 4; i=i+1)
+		if (a->fils[i] != NULL) aDesFils = 1;
+		if (aDesFils)
+		{
+			for(i = 0; i < 4; i=i+1)
+			{
+				if (a->fils[i] != NULL)
+				{
+					n[i] = rechercheMeilleurConfig(a->fils[i]);
+					if (n[i]!=NULL)
+					{
+						if (n[i]->distance < distanceMinimum)
+						{
+							distanceMinimum = n[i]->distance;
+							res = n[i];
+						}
+					}
+				}
+			}
+		}
+		else
+		{
+			if (a->marque == 0) res = arbreJeu;
+		}
+		return res;	
 }
-*/
+
+
+////////////////////////
+// Déroulement du Jeu //
+////////////////////////
+
+void jouer(Jeu ref, int h, int l, Arbre a)
+{
+	Jeu jeu;
+	Noeud *noeud, *n, m;
+	int i, j, mt, nt, distance, nombreAction;
+	
+	// On cherche la meilleure configuration
+	noeud = meilleureConfig(a);
+	if (noeud == NULL) {
+		printf("Taquin sans fin\n");
+		fprintf(stdout,"nbcomb = %d\n",nombreAction);
+		exit(0);
+    	}
+	
+	noeud->marque = 1;
+	nombreAction = nombreAction + 1;
+
+	for(i = 0; i < h; i=i+1) {
+		
+		for(j = 0; j < l; j=j+1) {
+
+			jeu[i][j] = noeud->jeu[i][j];
+
+		}
+	}
+		
+	distance = noeud->distance;
+	if (nbcomb%100 == 0)fprintf(stderr,"(%d) %d\r",distance,nombreAction);
+	/*  afficheJeu(jeu, h, l);*/
+		
+	if (distance == 0) {
+		fprintf(stdout,"(%d) %d\n",distance,nombreAction);
+		afficheJeu(jeu, h, l);
+		exit (0);
+	}
+	//On cherche la position du trou puis on effectue les mouvements possibles.
+	actionJeu(a, noeud, jeu, ref, h, l);
+	jouer(ref, h, l, a);
+}
 
 int main(int argc, char const *argv[])
 {
