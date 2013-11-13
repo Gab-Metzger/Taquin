@@ -1,9 +1,9 @@
 Project IPI C - Taquin
 ======================
 
-Résolution de jeu du Taquin
-Créer par Gabriel METZGER
-A rendre le 15 Novembre 2013
+Résolution de jeu du Taquin  
+Créer par Gabriel METZGER  
+A rendre le 15 Novembre 2013  
 
 Fonctions de base
 =================
@@ -59,14 +59,14 @@ Utilisation
 - On commence tout d'abord par écrire le Taquin dans le fichier jeu.init.
 Exemple : 
 
-3 3   	(Qui correspond à la taille du jeu)
-A B C
-D F E
-G 0 H
+3 3   
+A B C  
+D F E  
+G 0 H  
 
-A B C 	(Le jeu de référence)
-D E F
-G H 0
+A B C  
+D E F  
+G H 0  
 
 Où le caractère 0 correspond au trou.
 
