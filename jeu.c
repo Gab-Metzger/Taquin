@@ -29,6 +29,8 @@ int distance(Jeu jeu, Jeu ref, int h, int l);
 void actionJeu(Arbre a, Noeud *noeud, Jeu jeu, Jeu ref, int h, int l);
 Arbre ajoutFilsArbre(Arbre a, Jeu jeu, Jeu ref, int numeroCaseFils, int h, int l);
 int pasDansArbre(Arbre a, Jeu jeu, int h, int l);
+Noeud *rechercheMeilleurConfig(Arbre a);
+void jouer(Jeu ref, int h, int l, Arbre a);
 
 
 // Fonction d'affichage d'un jeu du Taquin.

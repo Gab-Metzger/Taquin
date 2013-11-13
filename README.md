@@ -8,19 +8,18 @@ Résolution de jeu du Taquin
 Fonctions de base
 =================
 
-- actionDeJeu(jeu, mvt) => jeu
+##Fonction d'initialisation##
 
-- comparerJeuRef(jeu, ref) => "distance"
+- initTaquin :
+	- Arguments : Jeu (Jeu), Ref (Jeu), hauteur (ptr sur integer), largeur (ptr sur integer), nomFichier (string).
+	- Résultat : Ne rend rien (void).
 
-- rechercherValJeu(char, jeu) => (x,y)
+##Fonction d'affichage##
+- afficheJeu
+	- Arguments : Jeu (jeu), hauteur (integer), largeur (integer).
+	- Résultat : Ne rend rien (void).
 
-- rechercherValJeuRef(char) => (x,y)
-
-- existenceJeu(jeu, arbre) => booleen
-
-- stockageJeu(jeu, arbre) => arbre
-
-- choisirJeu(arbre) => jeu
+##Fonctions de gestion de l'arbre##
 
 
 Utilisation
