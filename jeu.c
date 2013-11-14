@@ -315,7 +315,6 @@ void jouer(Jeu ref, int h, int l, Arbre a)
 		
 	distance = noeud->distance;
 	if (nombreAction%100 == 0)fprintf(stderr,"(%d) %d\r",distance,nombreAction);
-	/*  afficheJeu(jeu, h, l);*/
 		
 	if (distance == 0) {
 		fprintf(stdout,"Distance dans l'arbre : %d | Nombre total de coups : %d\n",distance,nombreAction);
@@ -326,7 +325,7 @@ void jouer(Jeu ref, int h, int l, Arbre a)
 
 	//On recherche tous les mouvements possible et on les effectues.
 	actionJeu(a, noeud, jeu, ref, h, l);
-
+	afficheJeu(jeu, h, l);
 	jouer(ref, h, l, a);
 }
 
@@ -341,6 +340,8 @@ int main(int argc, char const *argv[])
 	afficheJeu(jeu,h,l);
 	printf("Jeu de référence\n");
 	afficheJeu(jeuRef, h, l);
+
+	printf("Partie en cours (résolution)\n");
 	
 	a = ajoutFilsArbre(NULL, jeu, jeuRef, 0, h, l);
 	jouer(jeuRef, h, l, a);
