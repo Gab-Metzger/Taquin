@@ -19,6 +19,7 @@ typedef struct t_arbre
 } Noeud, *Arbre;
 
 int nombreAction = 0;
+unsigned char afficherProgression;
 
 // Prototype des fonctions
 void afficheJeu(Jeu jeu, int h, int l);
@@ -325,7 +326,12 @@ void jouer(Jeu ref, int h, int l, Arbre a)
 
 	//On recherche tous les mouvements possible et on les effectues.
 	actionJeu(a, noeud, jeu, ref, h, l);
-	afficheJeu(jeu, h, l);
+
+	if (afficherProgression == 'O')
+	{
+		afficheJeu(jeu, h, l);
+	}
+
 	jouer(ref, h, l, a);
 }
 
@@ -336,12 +342,18 @@ int main(int argc, char const *argv[])
 	Arbre a;
 
 	initTaquin(jeu,jeuRef,&h,&l,"jeu.init");
+
+	printf("Voulez vous afficher la progression ? (O : oui / N : non)\n");
+	afficherProgression = getchar();
 	printf("Jeu choisi à partir du fichier :\n");
 	afficheJeu(jeu,h,l);
 	printf("Jeu de référence\n");
 	afficheJeu(jeuRef, h, l);
 
-	printf("Partie en cours (résolution)\n");
+	if (afficherProgression == 'O')
+	{
+		printf("Partie en cours (résolution)\n");
+	}
 	
 	a = ajoutFilsArbre(NULL, jeu, jeuRef, 0, h, l);
 	jouer(jeuRef, h, l, a);
