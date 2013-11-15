@@ -193,6 +193,12 @@ Arbre ajoutFilsArbre(Arbre a, Jeu jeu, Jeu ref, int numeroCaseFils, int h, int l
 	noeud = (Noeud*)malloc(sizeof(Noeud));
 	int i,j;
 
+	if (noeud == NULL)
+	{
+		printf("Erreur lors de l'allocation de la mémoire.\n");
+		exit(1);
+	}
+
 	for (i = 0; i < h; i=i+1)
 	{
 		for (j = 0; j < l; j=j+1)
@@ -298,7 +304,7 @@ void jouer(Jeu ref, int h, int l, Arbre a)
 	noeud = rechercheMeilleurConfig(a);
 	if (noeud == NULL) {
 		printf("Taquin sans fin\n");
-		fprintf(stdout,"Nombre d'Action = %d\n",nombreAction);
+		fprintf(stdout,"Nombre d'Actions = %d\n",nombreAction);
 		exit(0);
     	}
 	
